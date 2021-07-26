@@ -5,7 +5,7 @@ const Job = require("../models/Job");
 
 router.get("/", function (req, res, next) {
   const firstJob = new Job({
-    name: "Kolera",
+    name: "Kolera 2",
   });
 
   firstJob.save((error, data) => {
