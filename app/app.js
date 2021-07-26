@@ -10,6 +10,7 @@ var companyRouter = require("./routes/company");
 
 var app = express();
 
+// mongo db connection
 mongoose
   .connect("mongodb://mongo:27017/kariyerDb", {
     useNewUrlParser: true,

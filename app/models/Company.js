@@ -2,10 +2,22 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CompanySchema = new Schema({
-  name: {
+  phone: {
     type: String,
     required: true,
     unique: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  jobCount: {
+    type: Number,
+    default: 2,
   },
 });
 
