@@ -6,12 +6,17 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@elastic/elasticsearch": "^7.13.0",
+    "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "dotenv": "^10.0.0",
+    "elasticsearch": "^16.7.2",
+    "express": "^4.16.4",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1",
-    "mongoose": "^5.9.5"
+    "mongoose": "^5.9.5",
+    "morgan": "~1.9.1"
   }
 }

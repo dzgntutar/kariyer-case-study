@@ -5,11 +5,10 @@ const Company = require("../models/Company");
 
 router.get("/", async function (req, res, next) {
   const companies = await GetAllCompany();
-  res.json(companies);
-  res.statusCode;
+  res.status(200).json(companies);
 });
 
-router.post("/", async function (req, res) {
+router.post("/", async function (req, res, next) {
   const allCompaines = await GetAllCompany();
   const company = allCompaines.find((el) => el.phone == req.body.phone);
 
@@ -20,7 +19,7 @@ router.post("/", async function (req, res) {
       address: req.body.address,
     });
     newCompany.save((error, data) => {
-      if (error) console.log(error);
+      //if (error) res.status(400).json(error);
       res.status(201).json(data);
     });
   } else {
