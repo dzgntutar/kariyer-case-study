@@ -3,7 +3,6 @@ var router = express.Router();
 
 const Job = require("../models/Job");
 
-//const esClient = require("../esClient");
 const { Client } = require("@elastic/elasticsearch");
 
 router.get("/", function (req, res, next) {
@@ -28,23 +27,6 @@ router.post("/", function (req, res, next) {
     if (error) res.status(400).json({ error: error });
     res.status(201).json(data);
   });
-});
-
-router.post("/objectionableword", async function (req, res, next) {
-  const elasticUrl = process.env.ELASTIC_URL || "http://localhost:9200";
-  const esclient = new Client({ node: elasticUrl });
-  const index = "quotes";
-  try {
-    await esclient.indices.create({ index });
-    console.log(
-      "********************************************Created index duzgun"
-    );
-  } catch (err) {
-    console.error(
-      "******************************************An error occurred while creating the index"
-    );
-    console.error(err);
-  }
 });
 
 module.exports = router;

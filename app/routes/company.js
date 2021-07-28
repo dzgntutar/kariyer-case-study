@@ -3,27 +3,32 @@ var router = express.Router();
 
 const Company = require("../models/Company");
 
+const phoneUniqeMessage = "Telefon numarası benzersiz olmalıdır.";
+
 router.get("/", async function (req, res, next) {
   const companies = await GetAllCompany();
   res.status(200).json(companies);
 });
 
 router.post("/", async function (req, res, next) {
-  const allCompaines = await GetAllCompany();
-  const company = allCompaines.find((el) => el.phone == req.body.phone);
-
-  if (!company) {
-    const newCompany = new Company({
-      phone: req.body.phone,
-      name: req.body.name,
-      address: req.body.address,
+  let phone = req.body.phone;
+  if (phone) {
+    Company.find({ phone }, function (err, company) {
+      console.log("*****************************");
+      console.log(company);
+      if (company && company.length > 0) {
+        res.status(400).json({ message: phoneUniqeMessage });
+      } else {
+        const newCompany = new Company({
+          phone: req.body.phone,
+          name: req.body.name,
+          address: req.body.address,
+        });
+        newCompany.save((error, data) => {
+          res.status(201).json(data);
+        });
+      }
     });
-    newCompany.save((error, data) => {
-      //if (error) res.status(400).json(error);
-      res.status(201).json(data);
-    });
-  } else {
-    res.status(400).json({ message: "duplicate Data in db" });
   }
 });
 

@@ -10,7 +10,6 @@ services:
       - ELASTIC_URL=http://elasticsearch:9200
     volumes:
       - ./:/code
-      # - .:/usr/src/app/kariyer
     depends_on:
       - mongo
       # - elasticsearch
