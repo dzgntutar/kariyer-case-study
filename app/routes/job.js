@@ -14,23 +14,38 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/", function (req, res, next) {
-  Company.findById({ _id: req.body.company_id }, function (err, company) {
+  let job = req.body;
+  Company.findById({ _id: job.company_id }, function (err, company) {
     if (company.jobCount > 0) {
-      company.jobCount -= 1;
-      company.save();
+      //company.jobCount -= 1;
+      //company.save();
+
+      console.log("****************************");
+      console.log(job.sidebenefit.length);
+
+      let jobQuality = 0;
+      if (job.sidebenefit.length > 0) {
+        jobQuality += 1;
+      }
+      if (job.workingType != undefined && job.workingType.length > 0)
+        jobQuality += 1;
+      if (job.salary != undefined && job.salary.length > 0) jobQuality += 1;
+      if (job.description != undefined && job.description.length > 0) {
+        //Sakıncalı kelime kontrolü yapılacak.. elastic search
+      }
 
       let newJob = new Job({
         company_id: req.body.company_id,
         position: req.body.position,
         description: req.body.description,
-        quality: 5,
+        quality: jobQuality,
         sidebenefit: req.body.sidebenefit.join(", "),
         workingType: req.body.workingType,
         salary: req.body.salary,
       });
 
       newJob.save((error, data) => {
-        if (error) res.status(400).json({ error: error });
+        if (error) res.status(400).json({ message: error });
         res.status(201).json(data);
       });
     } else {
