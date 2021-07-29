@@ -1,0 +1,14 @@
+*****************************************
+
+Endpoint : http://localhost:3000/company
+GetAll : 
+{}
+
+Create:
+{
+    "phone": "1111111111",
+    "name": "OBSS",
+    "address": "Teknokent"
+}
+
+*****************************************

@@ -1,0 +1,5 @@
+Backend --> nodejs 
+DB      --> Mongo
+
+docker-compose build
+docker-compose up

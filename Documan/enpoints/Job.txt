@@ -1,0 +1,21 @@
+
+*****************************************
+Endpoint : http://localhost:3000/job
+GetAll : 
+{}
+
+Create:
+{
+    "company_id": "610295bc0db32b0014f3f0bc",
+    "position": "C sharp developer",
+    "description": "Yazılım geliştirici aranıyor",
+    "sidebenefit": [
+        "Yemek",
+        "Yol"
+    ],
+    "workingType": "Tam Zamanli",
+    "salary": "3000TL"
+}
+
+*****************************************
+
