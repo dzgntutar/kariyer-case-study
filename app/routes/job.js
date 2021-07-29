@@ -17,11 +17,8 @@ router.post("/", function (req, res, next) {
   let job = req.body;
   Company.findById({ _id: job.company_id }, function (err, company) {
     if (company.jobCount > 0) {
-      //company.jobCount -= 1;
-      //company.save();
-
-      console.log("****************************");
-      console.log(job.sidebenefit.length);
+      company.jobCount -= 1;
+      company.save();
 
       let jobQuality = 0;
       if (job.sidebenefit.length > 0) {
