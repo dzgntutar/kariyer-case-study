@@ -14,7 +14,6 @@ router.post("/", async function (req, res, next) {
   let phone = req.body.phone;
   if (phone) {
     Company.find({ phone }, function (err, company) {
-      console.log("*****************************");
       console.log(company);
       if (company && company.length > 0) {
         res.status(400).json({ message: phoneUniqeMessage });
