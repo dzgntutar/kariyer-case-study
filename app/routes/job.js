@@ -4,7 +4,7 @@ var router = express.Router();
 const Company = require("../models/Company");
 const Job = require("../models/Job");
 
-//const { Client } = require("@elastic/elasticsearch");
+const esClient = require("../esClient");
 
 router.get("/", function (req, res, next) {
   Job.find({}, function (err, jobs) {
@@ -49,6 +49,19 @@ router.post("/", function (req, res, next) {
       res.status(403).json({ message: "İlan hakkınız bitmiştir.." });
     }
   });
+});
+
+router.post("/objectionableword", async function (req, res, next) {
+  console.log("************** selam ****************");
+  let isConnected = false;
+  while (!isConnected) {
+    try {
+      await esClient.cluster.health({});
+      console.log("Successfully connected to ElasticSearch");
+      isConnected = true;
+      res.json({ message: "İşlem Başarılı" });
+    } catch (_) {}
+  }
 });
 
 module.exports = router;
