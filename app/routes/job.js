@@ -4,7 +4,7 @@ var router = express.Router();
 const Company = require("../models/Company");
 const Job = require("../models/Job");
 
-const esClient = require("../esClient");
+const elastic = require("../esClient");
 
 router.get("/", function (req, res, next) {
   Job.find({}, function (err, jobs) {
@@ -51,17 +51,39 @@ router.post("/", function (req, res, next) {
   });
 });
 
-router.post("/objectionableword", async function (req, res, next) {
-  console.log("************** selam ****************");
-  let isConnected = false;
-  while (!isConnected) {
-    try {
-      await esClient.cluster.health({});
-      console.log("Successfully connected to ElasticSearch");
-      isConnected = true;
-      res.json({ message: "İşlem Başarılı" });
-    } catch (_) {}
+router.post("/populateword", async function (req, res, next) {
+  const isElasticReady = await elastic.checkConnection();
+  if (isElasticReady) {
+    const elasticIndex = await elastic.esclient.indices.exists({
+      index: elastic.index,
+    });
+
+    if (!elasticIndex.body) {
+      await elastic.createIndex(elastic.index);
+      await elastic.setWordsMapping();
+      await elastic.populateDatabase();
+    }
   }
+});
+
+router.post("/getillegalword", async function (req, res, next) {
+  const query = {
+    query: {
+      match_phrase_prefix: {
+        title: req.body.title,
+      },
+    },
+  };
+
+  const resSearch = await elastic.esclient.search({
+    index: elastic.index,
+    type: elastic.type,
+    body: query,
+  });
+
+  res.json({
+    result: `Adı: ${resSearch.hits.hits[0]._source.title}\nSıralama: ${resSearch.hits.hits[0]._source.order}`,
+  });
 });
 
 module.exports = router;
