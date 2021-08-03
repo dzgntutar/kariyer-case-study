@@ -82,7 +82,7 @@ router.post("/getillegalword", async function (req, res, next) {
   });
 
   res.json({
-    result: `Adı: ${resSearch.hits.hits[0]._source.title}\nSıralama: ${resSearch.hits.hits[0]._source.order}`,
+    result: `Data: ${resSearch.hits.hits[0]._source.title} Sıralama: ${resSearch.hits.hits[0]._source.order}`,
   });
 });
 

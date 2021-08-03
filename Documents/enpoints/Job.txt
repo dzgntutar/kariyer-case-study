@@ -1,10 +1,13 @@
 
 *****************************************
-Endpoint : http://localhost:3000/job
 GetAll : 
+Endpoint : http://localhost:3000/job
+Method --> Get
 {}
 
 Create:
+Endpoint : http://localhost:3000/job
+Method--> Post
 {
     "company_id": "610295bc0db32b0014f3f0bc",
     "position": "C sharp developer",
@@ -19,3 +22,18 @@ Create:
 
 *****************************************
 
+populateword:
+Endpoint : http://localhost:3000/job/populateword
+Method --> Post
+{} 
+
+*****************************************
+
+getillegalword:
+Endpoint : http://localhost:3000/job/getillegalword
+Method --> Post
+{
+    "title":"Hayvan"
+}
+
+*****************************************
